@@ -8,6 +8,7 @@
 #The other list contains the mild and extreme outliers.
 #The terminology was adopted from Jim Albert's notes on EDA. His GitHub link is here: https://github.com/bayesball
 #It can be further improved by incorporating lapply instead of the for loop, but for small scale purposes the for loop will suffice.
+#An additional improvement would be to incorporate the round function so that the user can specify the number of decimal places to be reported.
 summaries2 = function(datalist){
   letterlist = list()
   outlierlist = list()
