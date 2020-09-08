@@ -7,7 +7,7 @@
 #The letter values for this version of the function include the max, upper fourth, median, lower fourth, minimum, inner and outer upper and lower fences.
 #The other list contains the mild and extreme outliers.
 #The terminology was adopted from Jim Albert's notes on EDA. His GitHub link is here: https://github.com/bayesball
-
+#It can be further improved by incorporating lapply instead of the for loop, but for small scale purposes the for loop will suffice.
 summaries2 = function(datalist){
   letterlist = list()
   outlierlist = list()
