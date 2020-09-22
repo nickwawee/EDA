@@ -1,0 +1,56 @@
+
+## Title: minHinkley
+## Author: Nick Wawee
+## Description:
+#This function will find the minimum Hinkley value for varying power transformations of data within a list. 
+#The Hinkley value is a measure of the skewness of the data. The closer the value is to zero, the skewness of the data is at a minimum. 
+#If the value is negative, it is indicative of left skewness. If the value is positive, it is indicative of right skewness.
+#The inputs are a named numeric list of different datasets and a vector of powers for which the data to be transformed by. If the power vector is 0, the function will take the natural log of the data.
+#The output is a dataframe that contains the minimum Hinkey value and power for each dataset within the list.
+
+minHinkley = function(datalist, powervec){#numeric list and numeric vector
+  sampleNames = names(datalist)
+  minls=lapply(1:length(sampleNames), function(i){
+  
+    d = datalist[[sampleNames[i]]]#data
+    #calculating depths
+    depth_m = (length(d) + 1)/2
+    depth_f = (depth_m + 1)/2
+    
+    #finding minimum for each power
+    hvec = unlist(lapply(1:length(powervec), function(j){
+      if (powervec[j] != 0){
+        d.t = d**powervec[j] # d.t = data transforme
+      }else{d.t = log(d)}
+      
+      x = sort(d.t,decreasing = F) #selecting data
+      #Mean and Median
+      med = median(x)
+      average = mean(x)
+  
+      #Fourth Calculations
+      if (depth_m + depth_f %% 1 > 0){
+        ind1 = depth_m + depth_f
+        ind2 = depth_m - depth_f
+        fourth1 = (x[floor(ind1)] + x[ceiling(ind1)])/2
+        fourth2 = (x[floor(ind2)] + x[ceiling(ind2)])/2
+        }else{
+          fourth1 = x[depth_m + depth_f]
+          fourth2 = x[depth_m - depth_f]
+        }
+      f_spread = fourth1 - fourth2
+      
+      #Hinkley calculation
+      h = (average - med)/f_spread
+      
+    }))
+    abs_hvec = abs(hvec)
+    hstar = min(abs_hvec)# minimum distance from 0
+    pstar = powervec[which(abs_hvec==hstar)]
+    hstar = hvec[which(abs_hvec ==hstar)]
+    return(data.frame(min_Hinkey = hstar,Power = pstar))
+  })
+  names(minls) = names(datalist)
+  df = do.call(rbind, minls)
+  return(df)
+}
