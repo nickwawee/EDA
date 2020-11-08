@@ -2,7 +2,7 @@
 ## Author: Nick Wawee
 ## Description:
 #This function will find the letter values and outliers from a given data list. 
-#The input is a named list of data. 
+#The input is a named list of data that contains one column by n observations.
 #The output is a list of lists which contain the letter values as well as mild and extreme outliers.
 #The letter values for this version of the function include the max, upper fourth, median, lower fourth, minimum, inner and outer upper and lower fences.
 #The other list contains the mild and extreme outliers.
