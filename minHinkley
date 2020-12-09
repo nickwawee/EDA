@@ -48,7 +48,7 @@ minHinkley = function(datalist, powervec){#numeric list and numeric vector
     hstar = min(abs_hvec)# minimum distance from 0
     pstar = powervec[which(abs_hvec==hstar)]
     hstar = hvec[which(abs_hvec ==hstar)]
-    return(data.frame(min_Hinkey = hstar,Power = pstar))
+    return(data.frame(min_Hinkley = hstar,Power = pstar))
   })
   names(minls) = names(datalist)
   df = do.call(rbind, minls)
